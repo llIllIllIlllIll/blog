@@ -16,19 +16,19 @@ intensity|指的应该是灰度图某个像素的亮度。
 ![Alt](https://github.com/llIllIllIlllIll/blog/blob/master/bin_al1.png)
 解释一下：
 1. 输入灰度图。
-2. 第二点就有点奇怪...原论文里对第一步第二步的描述是，先用Gaussian filter处理原图像I，然后找到经过处理后得到图像I~gf~。接下来的第一步是从I~gf~中导出一个图像I<sub>edge</sub>，其中这个I~edge~是用来标记原图中的edge的。只要是位于edge上的像素，在I~edge~中被标记为1，其余点都被标记为0.
+2. 第二点就有点奇怪...原论文里对第一步第二步的描述是，先用Gaussian filter处理原图像I，然后找到经过处理后得到图像I~gf~。接下来的第一步是从I~gf~中导出一个图像I<sub>edge</sub>，其中这个I<sub>edge</sub>是用来标记原图中的edge的。只要是位于edge上的像素，在I<sub>edge</sub>中被标记为1，其余点都被标记为0.
 这里我认为他奇怪的原因是......他没告诉我具体怎么去找那个边。但想来（？）也不难，看大家具体实现吧。
 3. 突然很想吐槽这个论文图片的质量，搞得这么模糊不清。为什么不用你们自己的算法处理一下再发上来？一点说服力都没有......
 4. 构造一个和原图大小一样的数组S(score array)。这个数组是用在后续步骤对每个像素的score计算上的，然后最后的最后的binarization基于这个score array的结果。
-5. 这里还要引入几个值。W~in~和W~out~是两个矩形的window，一会儿要用来对于一个window内的部分数据进行处理。说实话这种window的形式让我想到了CNN里的filter......然后一个W~in~的宽度N~in~要大致等于stroke的宽度，一个W~out~的宽度N~out~要大致等于stroke的宽度*2。 然后这里搞笑的地方就是，这个算法也没告诉我怎么去确定stroke的宽度大小......
-6. 引入完这个概念之后，介绍一下这两个window的用途。每一个在I~edge~中被标记为1的点(i,j)，都将有一个以这个点为中心的W~in~和一个W~out~。而每一个W~in~和W~out~中的数据如下：
-**W~in~(i,j)[k,l]=I~gf~[i+k,j+l]**
-**for -N~in~/2<=k,l<=N~in~/2**
-**W~out~(i,j)[m,n]=I~gf~[i+m,j+n]**
-**for -N~out~/2<=m,n<=N~out~/2**
-接下来找到每一个W~in~(i,j)中的最大值和最小值，记为P~max~(i,j)和P~min~(i,j)。这里需要解释一下，在我的理解中，==因为我们是以一条边的边界作为每一个window的中心，并且一个W~in~的宽度和一条stroke相等，那么理想的情况下，这个W~in~中必然含有最亮和最暗的像素，分别代表stroke中的点以及字符间空白区域的点==。
-再对于每一个window确定一个threshold，分界值t(i,j)=(P~max~(i,j)+P~min~(i,j))/2。现在就可以用这个分界值对于整个W~out~里的对象对应的来进行打分加权，具体说就是对于每一个W~out~中的对象对应的S中的值来进行加减：
-**if(W~out~(i,j)[m,n]>t(i,j))
+5. 这里还要引入几个值。W<sub>in</sub>和W<sub>out</sub>是两个矩形的window，一会儿要用来对于一个window内的部分数据进行处理。说实话这种window的形式让我想到了CNN里的filter......然后一个W<sub>in</sub>的宽度N<sub>in</sub>要大致等于stroke的宽度，一个W<sub>out</sub>的宽度N<sub>out</sub>要大致等于stroke的宽度*2。 然后这里搞笑的地方就是，这个算法也没告诉我怎么去确定stroke的宽度大小......
+6. 引入完这个概念之后，介绍一下这两个window的用途。每一个在I<sub>edge</sub>中被标记为1的点(i,j)，都将有一个以这个点为中心的W<sub>in</sub>和一个W<sub>out</sub>。而每一个W<sub>in</sub>和W<sub>out</sub>中的数据如下：
+**W<sub>in</sub>(i,j)[k,l]=I<sub>gf</sub>[i+k,j+l]**
+**for -N<sub>in</sub>/2<=k,l<=N<sub>in</sub>/2**
+**W</sub>out</sub>(i,j)[m,n]=I<sub>gf</sub>[i+m,j+n]**
+**for -N<sub>out</sub>/2<=m,n<=N<sub>out</sub>/2**
+接下来找到每一个W<sub>in</sub>(i,j)中的最大值和最小值，记为P<sub>max</sub>(i,j)和P<sub>min</sub>(i,j)。这里需要解释一下，在我的理解中，**因为我们是以一条边的边界作为每一个window的中心，并且一个W~in~的宽度和一条stroke相等，那么理想的情况下，这个W~in~中必然含有最亮和最暗的像素，分别代表stroke中的点以及字符间空白区域的点**。
+再对于每一个window确定一个threshold，分界值t(i,j)=(P<sub>max</sub>(i,j)+P<sub>min</sub>(i,j))/2。现在就可以用这个分界值对于整个W<sub>out</sub>里的对象对应的来进行打分加权，具体说就是对于每一个W<sub>out</sub>中的对象对应的S中的值来进行加减：
+**if(W<sub>out</sub>(i,j)[m,n]>t(i,j))
 S[i+m,j+n]++;**
 遍历。
-7.最后最后有了一个打完分的S，就可以进行二值化分割了。论文里给出的结论是如果N~out~取的是stroke宽的两倍，最后的global threshold取3N~out~/2。
+7.最后最后有了一个打完分的S，就可以进行二值化分割了。论文里给出的结论是如果N<sub>out</sub>取的是stroke宽的两倍，最后的global threshold取3N<sub>out</sub>/2。
