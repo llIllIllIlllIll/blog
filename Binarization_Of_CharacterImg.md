@@ -13,7 +13,7 @@ edge|他这里edge，如果我没弄错的话，指的是笔画的edge。从围�
 intensity|指的应该是灰度图某个像素的亮度。
 好了，这些白痴概念浪费了我很久时间。这篇论文开始根本没有术语介绍，当然也应该是因为我太菜了，估计了解这方面内容的人根本不需要这种术语介绍。
 接下来先放一张他论文里给的algorithmI的流程图。
-![Alt](blog/bin_al1.png)
+![Alt](https://github.com/llIllIllIlllIll/blog/blob/master/bin_al1.png)
 解释一下：
 1. 输入灰度图。
 2. 第二点就有点奇怪...原论文里对第一步第二步的描述是，先用Gaussian filter处理原图像I，然后找到经过处理后得到图像I~gf~。接下来的第一步是从I~gf~中导出一个图像I~edge~，其中这个I~edge~是用来标记原图中的edge的。只要是位于edge上的像素，在I~edge~中被标记为1，其余点都被标记为0.
