@@ -2,7 +2,7 @@
 
 
 最近在准备Intel的一个涉及深度学习的程序设计大赛，我们小组选的课题是......手写汉字识别。然后这个汉字识别最基础的必然涉及图片的降噪、二值化处理，在网上找了蛮多相关资料。再mark一篇后续准备要看的论文：
-- [ ] [A SURVEY OF METHODS AND STRATEGIES IN CHARACTER SEGMENTATION ——一篇探讨字符分割方案的文章](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.158.220&rep=rep1&type=pdf)
+- [x] [A SURVEY OF METHODS AND STRATEGIES IN CHARACTER SEGMENTATION ——一篇探讨字符分割方案的文章](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.158.220&rep=rep1&type=pdf)
 
 看完了要记得回来✔哦hhhh。
 然后是这篇论文有两个算法。现在我就看完了第一篇然后就想先记录一下，后半部分等今天上完课做完作业再看。
