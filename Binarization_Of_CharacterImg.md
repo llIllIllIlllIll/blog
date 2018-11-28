@@ -1,4 +1,5 @@
 ## Binarization of noisy gray-scale character images by thin line modeling
+
 原论文资源：[Binarization of noisy gray-scale character images by thin line modeling](https://ac.els-cdn.com/S0031320398000193/1-s2.0-S0031320398000193-main.pdf?_tid=6eb1a8a7-d174-4510-80b0-c435ae89c3fd&acdnat=1542117798_c80c35850ff58a98fce6360f9162cafa).
 最近在准备Intel的一个涉及深度学习的程序设计大赛，我们小组选的课题是......手写汉字识别。然后这个汉字识别最基础的必然涉及图片的降噪、二值化处理，在网上找了蛮多相关资料。再mark一篇后续准备要看的论文：
 - [ ] [A SURVEY OF METHODS AND STRATEGIES IN CHARACTER SEGMENTATION ——一篇探讨字符分割方案的文章](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.158.220&rep=rep1&type=pdf)
