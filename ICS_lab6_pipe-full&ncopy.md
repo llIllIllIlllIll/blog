@@ -48,6 +48,6 @@ else
 ## 以下内容更新于lab6的最后一天...
 昨天凌晨一点我把CPE搞到了6.6，现在满分没有压力。这里用的技巧主要是去进一步修改了hcl，针对于按照andq->jle->iaddq这样的顺序进行了优化。当然这里其实也是利用了这个模拟器的一个bug，那就是这个模拟器内部不仅支持in和==这样子的逻辑判断，他居然还支持大于小于的判断...后面怎么做就不用说了。想看代码可以看这里。
 
-[pipefull.hcl](https://github.com/llIllIllIlllIll/blog/pipe-full.hcl)
+[pipefull.hcl](blog/pipe-full.hcl)
 
 <b>需要强调的是，我并不建议你使用这种方法...因为这只是一个bug，而且恰好是TA设置的测试条件没有测试这个问题。我做完也告诉YF助教了这个bug的存在......但我目测这个bug应该会一直存在下去。</b>
